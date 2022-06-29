@@ -17,7 +17,10 @@ export default function Form() {
                         id={`email`} 
                         name={`email`}
                         placeholder={`Enter your email`}
-                        {...register("email")}
+                        {...register("email",{
+                            required: true,
+                            pattern: "/\S+@\S+\.\S+/",
+                        })}
                     />
                 </label>
                 <label htmlFor="name">Name:
