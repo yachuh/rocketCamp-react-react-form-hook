@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
 export default function Form() {
+
+    const [ data, setData ] = useState();
+    
     const { 
         register, 
         handleSubmit, 
@@ -17,11 +20,12 @@ export default function Form() {
     
     const name = watch("name");
 
-    const onSubmit = (data) => console.log(data)
+    const onSubmit = (data) => {setData(JSON.stringify(data))};
 
     return(
         <div className="my-0 mx-auto w-6/12">
             <h1 className="text-3xl text-blue-500 text-center">Hello {name}!</h1>
+            {/* form */}
             <form 
                 className="flex flex-col space-y-2 w-full p-10"
                 onSubmit={handleSubmit(onSubmit)}>
@@ -83,6 +87,11 @@ export default function Form() {
                 <input className="bg-blue-500 text-white rounded-lg px-2 py-2 w-full cursor-pointer hover:bg-blue-700" type={`submit`} value={`Register Now`}></input>
                 <a className="text-center" href="../../public/index.html">登入</a>
             </form>
+            {/* Change state after submissions */}
+            <div>
+                <h2>This is what you submit:</h2>
+                <p>{data}</p>
+            </div>
         </div>
     );
 }
