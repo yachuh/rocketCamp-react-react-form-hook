@@ -2,7 +2,8 @@ import React from "react";
 import { useForm } from "react-hook-form";
 
 export default function Form() {
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit, formState:{errors}} = useForm();
+    console.log(errors);
     return(
         <div>
             <form 
@@ -18,8 +19,11 @@ export default function Form() {
                         name={`email`}
                         placeholder={`Enter your email`}
                         {...register("email",{
-                            required: true,
-                            pattern: "/\S+@\S+\.\S+/",
+                            required: "Email is required",
+                            pattern: {
+                                value: /\S+@\S+\.\S+/,
+                                message: "Entered value does not match email format"
+                            }
                         })}
                     />
                 </label>
@@ -30,7 +34,7 @@ export default function Form() {
                         name={`name`} 
                         id={`name`} 
                         placeholder={`Enter your name`}
-                        {...register("name", {required: true})}
+                        {...register("name", {required: "Name is required"})}
                     />
                 </label>
                 <label htmlFor="pwd">Password:
@@ -40,7 +44,12 @@ export default function Form() {
                     name={`pwd`} 
                     id={`pwd`} 
                     placeholder={`Enter your password`}
-                    {...register("password", { minLength: 6 })}
+                    {...register("password", { 
+                        minLength: {
+                         value: 6,
+                         message: "Password must have at least 6 characters"
+                        }
+                    })}
                 />
                 </label>
                 {/* <label htmlFor="pwd2">Confirm password:
