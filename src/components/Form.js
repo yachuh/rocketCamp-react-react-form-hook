@@ -5,6 +5,7 @@ export default function Form() {
     const { 
         register, 
         handleSubmit, 
+        watch, 
         formState:{errors}
     } = useForm({
         defaultValues: {
@@ -13,17 +14,20 @@ export default function Form() {
             pawwsord:""
         }
     });
-    console.log(errors);
+    
+    const name = watch("name");
+
+    const onSubmit = (data) => console.log(data)
+
     return(
-        <div>
+        <div className="my-0 mx-auto w-6/12">
+            <h1 className="text-3xl text-blue-500 text-center">Hello {name}!</h1>
             <form 
-                className="flex flex-col space-y-2 w-1/3 p-10"
-                onSubmit={handleSubmit((data)=> {
-                    console.log(data);
-            })}>
+                className="flex flex-col space-y-2 w-full p-10"
+                onSubmit={handleSubmit(onSubmit)}>
                 <label htmlFor="email">Email:
                     <input 
-                        className="mt-1 px-2 py-2 border rounded-lg block w-full focus:border-black" 
+                        className="mt-1 px-2 py-2 border rounded-lg block w-full focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 invalid:border-pink-500 invalid:text-pink-600" 
                         type={`text`} 
                         id={`email`} 
                         name={`email`}
@@ -36,22 +40,22 @@ export default function Form() {
                             }
                         })}
                     />
-                    <p className="mt-1 text-sm text-red-500">{errors.email?.message}</p>
+                    <p className="mt-1 text-sm text-pink-500">{errors.email?.message}</p>
                 </label>
                 <label htmlFor="name">Name:
                     <input 
-                        className="mt-1 px-2 py-2 border rounded-lg block w-full focus:border-black" 
+                        className="mt-1 px-2 py-2 border rounded-lg block w-full focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 invalid:border-pink-500 invalid:text-pink-600" 
                         type={`text`} 
                         name={`name`} 
                         id={`name`} 
                         placeholder={`Enter your name`}
                         {...register("name", {required: "Name is required"})}
                     />
-                    <p className="mt-1 text-sm text-red-500">{errors.name?.message}</p>
+                    <p className="mt-1 text-sm text-pink-500">{errors.name?.message}</p>
                 </label>
                 <label htmlFor="pwd">Password:
                     <input 
-                    className="mt-1 px-2 py-2 border rounded-lg block w-full focus:border-black" 
+                    className="mt-1 px-2 py-2 border rounded-lg block w-full focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 invalid:border-pink-500 invalid:text-pink-600" 
                     type={`password`} 
                     name={`pwd`} 
                     id={`pwd`} 
@@ -64,7 +68,7 @@ export default function Form() {
                         }
                     })}
                 />
-                <p className="mt-1 text-sm text-red-500">{errors.password?.message}</p>
+                <p className="mt-1 text-sm text-pink-500">{errors.password?.message}</p>
                 </label>
                 {/* <label htmlFor="pwd2">Confirm password:
                 <input 
