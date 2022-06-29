@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 export default function Form() {
@@ -9,6 +9,7 @@ export default function Form() {
         register, 
         handleSubmit, 
         watch, 
+        formState,
         formState:{errors}
     } = useForm({
         defaultValues: {
@@ -21,6 +22,10 @@ export default function Form() {
     const name = watch("name");
 
     const onSubmit = (data) => {setData(JSON.stringify(data))};
+
+    useEffect( ()=> {
+        console.log("useEffect", formState.errors)
+    },[formState])
 
     return(
         <div className="my-0 mx-auto w-6/12">
